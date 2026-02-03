@@ -9,7 +9,7 @@ In this assignment, we will be working with a dataset reporting the number of cr
 You will need to load the tidyverse library
 
 ```{r}
-
+library(tidyverse)
 ```
 
 Then you'll load the data from the web. The URL for the data is: https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/pg_crime_totals_2024.csv. You will create a dataframe called `pg_crime` that contains the data from this URL.
@@ -17,19 +17,22 @@ Then you'll load the data from the web. The URL for the data is: https://raw.git
 ### Task 2: Load the Data and Describe It
 
 ```{r}
+pg_crime <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/pg_crime_totals_2024.csv")
 ```
 ### Task 3: Describe the Data
 
 You should examine that dataframe carefully by clicking on it in the Environment tab in RStudio. Write a couple of sentences describing the categories of incidents. From a reporting standpoint, are any of the categories more important than others? Why or why not? Do any of them make the job of summarizing the data more difficult? Why or why not?
 
-ANSWER HERE
+Most of the categories fall into categories themselves. Assault, B&E, robbery and theft. There are a few exceptions such as "accident" or "homicide". 
+For reporters, all of these categories are important. However, the ones that are more important are the categories that have frequent or higher numbers compared to their "expected" frequencies. For this set of data, one story could be about how "B&E Commercial" crimes are more common in December, around the holidays. Another could be about the low percentage of "Auto Stolen & Recovered" compared to the number of "Auto Stolen". 
+I don't think any of these categories make the data harder to summarize. All of these categories are valuable, and you can't really combine any of them to make it "easier".
 
 ### Task 4: Calculating Averages
 
 Calculate the total number of incidents per month for each category using `mutate()`, calling the new column `total_incidents`. Then calculate the average number of incidents per month for each category of crime, calling the new column `average_incidents`. Assign the result to a new dataframe called `pg_crime_averages`.
 
 ```{r}
-
+pg_crime_averages <- pg_crime |> mutate(pct_change = (`total_incidents`- `average_incidents`)/`average_incidents` * 100)
 ```
 
 ### Task 5: Describe the Averages
