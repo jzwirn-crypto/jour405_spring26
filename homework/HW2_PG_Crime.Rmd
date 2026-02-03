@@ -31,15 +31,24 @@ I don't think any of these categories make the data harder to summarize. All of 
 
 Calculate the total number of incidents per month for each category using `mutate()`, calling the new column `total_incidents`. Then calculate the average number of incidents per month for each category of crime, calling the new column `average_incidents`. Assign the result to a new dataframe called `pg_crime_averages`.
 
+
 ```{r}
-pg_crime_averages <- pg_crime |> mutate(pct_change = (`total_incidents`- `average_incidents`)/`average_incidents` * 100)
+pg_crime_averages <- pg_crime |> mutate(total_incidents = Jan + Feb + Mar + Apr + May + Jun + Jul + Aug + Sep + Oct + Nov + Dec)
+```
+
+```{r}
+pg_crime_averages2 <- pg_crime_averages |> mutate(average_incidents = total_incidents/12)
 ```
 
 ### Task 5: Describe the Averages
 
-Examine the new dataframe, `pg_crime_averages`, by clicking on it in the Environment tab in RStudio. Write a couple of sentences describing the average number of incidents per month for each category. Which categories have the highest average number of incidents per month? Which have the lowest? What does this tell you about the pattern of crime in Prince George's County? Are there categories that you have questions about? Why or why not?
+Examine the new data-frame, `pg_crime_averages`, by clicking on it in the Environment tab in RStudio. Write a couple of sentences describing the average number of incidents per month for each category. Which categories have the highest average number of incidents per month? Which have the lowest? What does this tell you about the pattern of crime in Prince George's County? Are there categories that you have questions about? Why or why not?
 
-ANSWER HERE
+Two of the most common crimes were "Accident" and "Accident with Impound". These are ones that I figured would be among the most common, as car wrecks are unfortunately a common occurrence.
+
+Homicides were one of the least common crimes. I take that to be a good thing, but averaging just under six homicides per month is still too high. This is where you need to take into account what the crime is. Certain crimes, like homicides, should be a less frequent occurrence. However, their "high" numbers are seemingly low in comparison.
+
+This data tells me that there is a large number of crimes committed per year in PG County and they are seemingly all at "normal" rates. I say normal because none of the categories jump out at me as being egregiously high or low.
 
 
 ### Task 6: Testing a Theory
@@ -47,19 +56,22 @@ ANSWER HERE
 One theory about crime is that it is more likely to occur in the summer months. Test this theory by creating three new columns using `mutate()` that calculate the percentage change compared to the average for each category of crime for the months of June, July, and August. Call the new columns `june_change`, `july_change`, and `august_change`. Assign the result to a new dataframe called `summer_crime_averages`.
 
 ```{r}
+summer_crime_averages <- pg_crime_averages2 |> mutate(june_change = (Jun - average_incidents) / average_incidents *100, july_change = (Jul - average_incidents) / average_incidents *100, august_change = (Aug - average_incidents) / average_incidents *100)
 ```
 
 ### Task 7: Describe the Summer Crime Averages
 
 Look at the `summer_crime_averages` dataframe by clicking on it in the Environment tab in RStudio. Write a couple of sentences describing the percentage change in the average number of incidents per month for each category of crime for the months of June, July, and August. Do you see any patterns? What does this tell you about the theory that crime is more likely to occur in the summer months?
 
-ANSWER HERE
+The average number of crimes committed stayed fairly the same in the summer months. While some categories saw a large change in one month, the other two summer months showed the opposite or small changes. The pattern is that crimes will always fluctuate throughout the year. Sometimes crime numbers go up, whereas other times crime numbers will decrease. 
 
 ### Task 8: What's the Story?
 
 Write up a lede and nutgraf of a story focused on the crime data in Prince George's County. It could be from any of the dataframes you've created in this assignment. The lede should be a single sentence that summarizes the most important information in the data. The nutgraf should be a paragraph that provides more context and explains why the data is important.
 
-ANSWER HERE
+Auto thefts more commonly result in no outcome, rather than a satisfying conclusion for the car owner. 
+
+Of the roughly 5,000 auto thefts last year, only 10% were returned to their rightful owners. Approximately 400 cars were stolen each month, and an average of 40 were returned. Despite their best efforts, police fail to return the stolen property more often than not, causing victims to lose their belongings.
 
 ### Task 9: Save Your Work and Put it on GitHub
 
