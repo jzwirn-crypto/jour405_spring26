@@ -59,3 +59,30 @@ Some smaller towns in Maryland have seen a complete absence of crime in recent y
 ### Task 9: Save Your Work and Put it on GitHub
 
 Save this notebook, then commit it to your local repository. Push the changes to your GitHub repository and submit the URL for this file in ELMS.
+
+
+### Task 10
+
+Using the 2020 violent crime rate, calculate the percentiles using `ntile()`. Save the results to a new dataframe called `md_cities_percentiles`. How many cities are above the 90th percentile?
+
+Calculate the Interquartile Range of the 2020 violent crime rate using `summarize()` and R's `IQR()` function. The syntax is similar to how `mean()` works.
+
+Do the results change your best story idea from the previous assignment? Why or why not?
+
+```{r}
+md_cities_percentiles <- md_cities |> mutate(percentile = ntile(violent2020, 100))
+```
+
+11 cities are above the 90th percentile
+
+```{r}
+md_cities_percentiles |> 
+  summarize(
+    IQR_violent2020 = IQR(violent2020)
+  )
+```
+
+The results does change my story idea. While Barclay and Barnesville are both in the 1st percentile, it is still an interesting story that their small population has helped them have zero crime in their towns. However, there are definitely some new ideas that can be found from this new data such as Ocean City having such a low population but being in the 94th percentile. This would be a very interesting story because their small population of just under 7,000 resulting in high crime rates. Maybe because it is a popular tourist destination, that results in some of the higher numbers.
+
+
+
