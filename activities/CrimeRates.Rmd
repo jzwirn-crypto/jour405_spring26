@@ -45,7 +45,7 @@ crimes_with_rates <- crimes |> mutate(violent_rate = violent_crime_total/populat
 
 Write a few sentences about what you found in the data. What years had the highest crime rates? What years had the lowest crime rates? Does the pattern match your expectations?
 
-
+From 1975-2020, the overall crime rate went down. 2020 was the lowest year fo crime rates and I believe that this was due to the COVID-19 pandemic where people were scared to leave their houses for a majority of the year. 1995 was the final year that both the violent and property crime rates went up before they continuously dropped until the end of the dataframe. This pattern matches my expectations as Maryland has become a safer place over time, espectially in recent memory.
 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
