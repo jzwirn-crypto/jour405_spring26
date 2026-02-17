@@ -38,7 +38,6 @@ car_thefts |>
 
 
 
-
 ### Task 5: Add a line to the histogram that shows the mean of the number of car thefts, and two other lines to show one standard deviation in both directions
 
 
@@ -46,6 +45,6 @@ car_thefts |>
 
 Is the distribution normal or skewed in one direction? Write a sentence in which you describe the range of the data covered by one standard deviation from the mean on both sides - how much of the data falls in that range?
 
-
+I would say this is a normally distributed data chart. The majority (I'd guess around 60-70%) of the data points fall close to the mean (between the two blue lines) and there isn't a bunch of random spikes in data anywhere. 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
