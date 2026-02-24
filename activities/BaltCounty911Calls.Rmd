@@ -1,6 +1,6 @@
 ---
 title: "Baltimore County 911 Overdose Calls Analysis"
-author: "YOUR NAME HERE"
+author: "Jack Zwirn"
 ---
 
 ```{r setup, include=FALSE}
@@ -74,7 +74,7 @@ summary(daily_calls$call_count)
 
 Let's visualize the time series of daily calls. What patterns do you see? If you had to draw horizontal lines that would highlight unusual days, where would those lines be?
 
-ANSWER HERE
+There is a dip at the end of the graph in late January 2023 compared to the previous year. I would draw a horizontal line across the chart for the highest datapoint in early October and New Years Day. Both of those are clear outliers.
 
 ```{r daily-calls-plot}
 # Plot daily call volume
@@ -137,7 +137,7 @@ unusual_days |>
 
 Let's visualize these unusual days in the context of the full dataset. How do they differ from your answer on Task 3?
 
-ANSWER HERE
+There are a lot of unusually low datapoints towards the end of the graph in comparison to the rest of the chart. On the flip side, ther are a lot of unusually high datapoints during the warmer months in comparison to the unusually low days.
 
 ```{r plot-unusual-days}
 # Create a clean factor for the plot legend
@@ -207,7 +207,7 @@ ggplot(dow_summary, aes(x = day_of_week, y = avg_calls)) +
 
 We can also calculate z-scores that account for the day of the week pattern. How would you describe the day with the highest z-score without using the term "z-score"?
 
-ANSWER HERE
+The largest outlier was on 10-4-2022. This day was so rare that it was one of 11 days throughout the entire year where there was a rate this high.
 
 ```{r day-of-week-z-scores}
 # Calculate day-of-week adjusted z-scores
@@ -298,5 +298,5 @@ top_outliers |> kable(digits = 2)
 
 Based on our z-score analysis, what are some potential angles for reporting? What would your next steps be and what would you tell an editor about your findings?
 
-ANSWER HERE
+One potential angle for reporting could be to look at the dates with a low number of calls and see if those days were just lucky or if there was a reason for the lower number of overdoses. Another could be to use the trend of a large number of overdose calls during the summer to determine why the summer resulted in a higher number of deaths. The next steps would be to reach out to the police and other relevant people within the community to learn further information about the data. I would explain everything that I found interesting to my editor.
 
