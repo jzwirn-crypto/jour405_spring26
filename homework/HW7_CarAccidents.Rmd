@@ -27,19 +27,12 @@ library(knitr)      # For nice tables
 library(lubridate)  # For working with dates
 ```
 
-## Loading the Data
+### Task 1: Loading the Data (1 point)
 
-We'll load the accident data from our CSV file:
+Load the accident data from our CSV file at https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/daily_accidents.csv into a dataframe called `accidents`:
 
 ```{r load-data}
-# Load accident data
 accidents <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/daily_accidents.csv")
-
-# Display the first few rows
-head(accidents)
-
-# Check basic info about the dataset
-glimpse(accidents)
 ```
 
 ## Data Exploration
@@ -72,7 +65,7 @@ ggplot(accidents, aes(x = date, y = total)) +
        caption = "Source: Prince George's County Accident Data")
 ```
 
-### Task 1 (3 points)
+### Task 2 (3 points)
 Looking at the time series visualization above, identify at least two noticeable patterns or anomalies. What questions would you want to investigate further based on this initial view of the data? How might these visual patterns translate into potential story angles?
 
 One anomaly is towards the end of 2021. There is a huge spike to almost 60 accidents on that day. I wonder what specific date that is and if that date had anything important that happened that could provoke the spike. Another pattern I noticed is in the beginning months of 2020, during the COVID-19 pandemic. This happened because people didn't leave their homes very often around that time due to the quarantine. I wonder how long it took for the car accidents to return to the mean and if there is any correlation to the vaccine being released or if it was more along the lines of people getting fed up being cooped up at home.
@@ -111,14 +104,16 @@ ggplot(accidents, aes(x = day_of_week, y = total)) +
        caption = "Source: Prince George's County Accident Data")
 ```
 
-### Task 2 (2 points)
+### Task 3 (2 points)
 Based on the day-of-week analysis, which day(s) have the highest and lowest average accidents? Why might these patterns exist?
 
 Highest average accident number: Friday but really the weekends when people are out more frequently, rather than at work. Lowest average accident number: Wednesday. It's the middle of the week. People are at work, not much happens on Wednesdays in terms of events.
 
 ## Calculating Z-Scores
 
-Now, let's calculate z-scores for our accident totals:
+### Task 4 (2 points)
+
+Now, using the accidents dataframe, add three columns using `mutate()`: mean_accidents, sd_accidents and z_score, based on the example from class.
 
 ```{r calculate-z-scores}
 # Calculate z-scores for total accidents
@@ -158,7 +153,7 @@ unusual_days |>
   kable(digits = 2)
 ```
 
-### Task 3 (3 points)
+### Task 5 (3 points)
 Choose one of the top 10 unusual days and research what might have happened on that date. Look for weather events, holidays, major incidents, or other factors that could explain the unusual number of accidents. Briefly describe your findings and how you would incorporate this context into a story.
 
 10/29/2021. This was the day that the FDA approved the COVID-19 vaccine for kids ages 5-11. People likely all rushed outside to get their kids vaccinated and as a result, caused a large spike in accidents. For a story, I could look further into the accidents on the day and talk to those involved to see if there isn any truth to my theory.
@@ -182,7 +177,9 @@ ggplot(accidents, aes(x = date, y = total, color = abs(z_score) > 2)) +
 
 ## Day of Week Patterns
 
-Let's calculate z-scores that account for day of week patterns:
+### Task 6 (3 points)
+
+Let's calculate z-scores that account for day of week patterns based on the same pattern as above:
 
 ```{r day-of-week-z-scores}
 # Calculate day-of-week adjusted z-scores
@@ -207,7 +204,7 @@ unusual_dow |>
   kable(digits = 2)
 ```
 
-### Task 4 (3 points)
+### Task 7 (3 points)
 Compare the days that have extreme z-scores overall versus those with extreme day-of-week z-scores. How do these lists differ? What journalistic insights can you draw from comparing these two different approaches to measuring "unusual" days?
 
 By sorting by days of the week, we can make broader conclusions about patterns for when unusual days can occur. However, by looking at the data this way, it isn't as specific as I would want it to be. If you look at the days of the week, you also need the specific days. However, while still helpful to look at both, if you only look at one, I would use the specific days only. This way you can see the individual times when the data was unusual and can base your research off of that. I personally would use both though because they both tell a different version of the same story.
@@ -286,7 +283,7 @@ unusual_monthly |>
   kable(digits = 2)
 ```
 
-### Task 5 (2 points)
+### Task 8 (2 points)
 Based on the monthly pattern analysis, which months have the highest and lowest average accidents? Develop a hypothesis about why these seasonal patterns exist.
 
 The months that have the highest average accidents are October, November and December. I believe this is the case because it is when the weather starts to get colder and drivers take a while to acclimate to driving in inclement weather. Another reason for this could be the lead up to the holidays. Parents are rushing out to get gifts for their kids. The months that have lowest average accidents include January, February and March. This could be due to the true time of year with bad, cold weather. People aren't out on the roads much in comparison and as a result there aren't as many accidents.
@@ -311,14 +308,14 @@ if(nrow(extreme_outliers) > 0) {
 }
 ```
 
-### Task 6 (2 points)
+### Task 9 (2 points)
 For the extreme outliers identified (z-scores beyond ±3), what do they have in common?
 
 For the most part, they all take place on a Friday or Saturday. They are all high rates and take place on the weekend.
 
 ## Your Best Story Pitch
 
-### Task 7 (5 points)
+### Task 10 (5 points)
 Based on all the analyses performed, craft your best story pitch, including a headline and lede. Be sure to include what kinds of sources/people you'd talk to for the story.
 
 Story pitch: Friday/Saturday result in higher count of car accidents
