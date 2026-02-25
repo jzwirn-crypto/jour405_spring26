@@ -115,7 +115,7 @@ actual_prob
 
 **Write a sentence describing this probability in plain English. How does the normal approximation (prob_less) compare to the actual percentage?**
 
-ANSWER HERE
+The normal approximation tells us what a close estimate of the percentages are, while the actual percentages give us the real numbers for the data. The estimate uses the empirical rule to try and make sense of the data and make it easier to interperet without giving the exact numbers.
 
 ### Task 5: Probability between two values (3 points)
 
@@ -125,21 +125,21 @@ You'll need to calculate z-scores for those two figures, use `pnorm()` for each,
 
 ```{r}
 
-z_lower <- (REPLACE_ME - mean_sal) / sd_sal
-z_upper <- (REPLACE_ME - mean_sal) / sd_sal
+z_lower <- (80000 - mean_sal) / sd_sal
+z_upper <- (120000 - mean_sal) / sd_sal
 
 prob_between <- pnorm(z_upper) - pnorm(z_lower)
 prob_between
 
 # Verify with actual data
-actual_between <- sum(wh_paid$SALARY >= REPLACE_ME & wh_paid$SALARY <= REPLACE_ME) / total_n
+actual_between <- sum(wh_paid$SALARY >= 80000 & wh_paid$SALARY <= 120000) / total_n
 actual_between
 
 ```
 
 **Interpret this result. What does this "middle range" tell us about the White House salary structure?**
 
-ANSWER HERE
+This tells me that there are less employees making money in the "middle range" than there should be. This means that there are either too many employees earning too much or not enough on their salary.
 
 ### Task 6: Expected vs. observed (3 points)
 
@@ -171,7 +171,7 @@ bins |> select(category, expected_count, observed_count, difference)
 
 **Where does reality differ most from what the normal distribution predicts? What might explain those differences?**
 
-ANSWER HERE
+Key differences include the number of employees earning under 60k (thank goodness) and the employees earning over 150k. There are other differences, but those two are the ones that jump out to me the most. This can be explained by the fact that earning under 60K per year is an unlivable salary, so most employees earn more than that. Earning over 150k can be explained by the fact that a lot of more important higher-ups in the government earn more than the average person.
 
 ### Task 7: Story pitch (4 points)
 
@@ -179,7 +179,11 @@ Based on your probability analysis, write a headline and lede for a story about 
 
 Then write 2-3 sentences describing how you would use probability thinking to advance this story — what could you compare these probabilities to, and what additional analysis would help?
 
-ANSWER HERE
+Headline: Large portion of White House staff earn between 90k-150k annually.
+
+Lede: According to recent data regarding the salaries of White House employees, 162 of approximately 400 staff earn between 90k-150k per year. This number is lower than expected; with the expected count being over 200 employees. If the White House employees were paid on a normally distributed spread, there should be approximately another 50 employees paid in this salary range. 
+
+Probability thinking: Probability thinking would advance this story by shifting the focus from a single, static number to a dynamic, risk-adjusted, and context-aware narrative. It replaces oversimplified narratives of "hard work equals high pay" with a more accurate picture that includes luck, base rates, and volatility. I could compare this to other government agencies such as members of Congress and analyze if there are any coorelations between the two in terms of how the salary spread looks.
 
 ### Task 8: Save Your Work and Put it on GitHub
 
