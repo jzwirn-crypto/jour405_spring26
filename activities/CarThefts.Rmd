@@ -8,6 +8,7 @@ Follow along with the demo to learn how to calculate standard deviation and how 
 
 ```{r}
 library(tidyverse)
+library(dplyr)
 ```
 
 
@@ -48,3 +49,35 @@ Is the distribution normal or skewed in one direction? Write a sentence in which
 I would say this is a normally distributed data chart. The majority (I'd guess around 60-70%) of the data points fall close to the mean (between the two blue lines) and there isn't a bunch of random spikes in data anywhere. 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
+
+
+
+
+### How likely is a specific car theft month?
+
+Let's pick the month with the highest total and walk through the process: calculate its z-score, use `pnorm()` to find the probability, then check against the actual data.
+```{r pnorm-specific-month}
+# Find the month with the most car thefts
+highest_month <- car_thefts %>%
+  filter(count == max(count))
+
+cat(sprintf("Month: %s\n", highest_month$month))
+cat(sprintf("Total thefts: %d\n", highest_month$count))
+
+# Step 1: Calculate the z-score
+z <- (highest_month$count - mean(car_thefts$count)) / sd(car_thefts$count)
+cat(sprintf("\nZ-score: %.2f\n", z))
+
+# Step 2: Use pnorm() to find the probability of a month this high or higher
+prob_above <- 1 - pnorm(z)
+cat(sprintf("pnorm() estimate - probability of a month this high or higher: %.4f (%.2f%%)\n", prob_above, prob_above * 100))
+
+# Step 3: Check against the actual data
+actual_prob <- sum(car_thefts$count >= highest_month$count) / nrow(car_thefts)
+cat(sprintf("Actual data - proportion of months this high or higher: %.4f (%.2f%%)\n", actual_prob, actual_prob * 100))
+```
+
+The `pnorm()` estimate and the actual proportion won't match perfectly — `pnorm()` assumes a normal distribution, and real data is never perfectly normal. But they should be in the same ballpark, and the comparison helps us see how well the normal model fits.
+
+
+
