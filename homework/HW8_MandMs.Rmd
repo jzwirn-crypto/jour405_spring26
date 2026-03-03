@@ -6,26 +6,50 @@ In this assignment, you'll be picking up where you left off with the M&Ms activi
 
 ### Task 1: Load the tidyverse
 
+```{r}
+library(tidyverse)
+```
+
 
 ### Task 2: Load the M&Ms dataset from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv
+
+```{r}
+candy <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv")
+```
 
 
 ### Task 3: Sample 5 rows of data from the dataset
 
+```{r}
+sample_5 <- candy |> sample_n(5)
+```
 
 ### Task 4: Calculate the mean age and standard deviation of the sample, using either the blue or white number of M&Ms
 
+```{r}
+
+sample_5 |> summarize(mean = mean (black), sd = sd(black))
+
+
+```
 
 ### Task 5: Calculate the mean age and standard deviation of the population, using the same measure as in Task 4
 
+```{r}
+candy |> summarize(mean = mean (black), sd = sd(black))
+
+```
 
 ### Task 6: Compare the sample and population statistics
 
 Compare the two sets of means and standard deviations. Are they similar?
 
+The sample mean and standard deviation are both smaller than the population numbers and specifically in the case of the mean, not close enough to be considered accurate. I would take a larger sample for more accurate data.
+
 ### Task 7: Describe the results
 
 Write a few sentences about what you found in the data. What does this tell you about the M&Ms dataset and about the act of random sampling?
 
+Based on the data, I found that in order to have more accurate data, the sample size needs to be big enough for it to be so. Accuracy of the data matters big time and if the sample is too small, it won't properly reflect the population being covered.
 
 When finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
