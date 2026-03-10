@@ -154,7 +154,7 @@ car_thefts |>
   summarize(
     median_thefts = median(theft_rate) ,
     total_thefts = sum(thefts_2023)
-  )
+  ) 
 ```
 Baltimore City, Prince George's County, St. Mary's County, Baltimore County, Dorchester County, Montgomery County, Howard County, Anne Arundel County, Washington County, Charles County, Cecil County, Wicomico County all have rates above the median
 
