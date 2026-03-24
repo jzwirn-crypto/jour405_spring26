@@ -25,6 +25,7 @@ you can assign the new column to the same dataframe by using that name again:
   mydata <- mydata |> mutate(avg = mean(stat))
 
 summary(dataframe) to show IQR and each of the quartiles
+summarize(dataframe) to show other information like mean, standard deviation
 
 
 Standard deviation measures how spread out your data is around the mean
