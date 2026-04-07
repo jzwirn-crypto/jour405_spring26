@@ -3,3 +3,17 @@ title: "final_project"
 output: html_document
 ---
 
+
+replace_na()
+
+
+```{r}
+
+library(tidyverse)
+
+
+covers <- read_csv("SI-Cover-by-Sport-DFE.csv")
+
+covers <- covers %>% 
+  mutate_all(coalesce, 0)
+```
