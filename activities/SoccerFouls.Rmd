@@ -48,6 +48,22 @@ matches |>
 
 
 ### Task 6: Describe the results of both the correlation calculation and the scatterplot.
+There is a pretty normal distribution here on both sides of the line. There is no real correlation between goal differential and the number of fouls committed. The flat line is another indicator of no correlation. If it was a steeper line in one direction or the other, then there would be a correlation.
+
+
+Task 7: Choose another variable and repeat steps of tasks 4-5, then descirbe the results.
+```{r}
+matches |> summarize(correlation = cor(corners, goal_diff, method="pearson"))
+
+```
+
+```{r}
+matches |> 
+  ggplot() +
+  geom_point(aes(x=goal_diff, y=corners)) +
+  geom_smooth(aes(x=goal_diff, y=corners), method="lm")
+```
+There is a correlation between goal differential and corners. The steep increase in the line means that there is a correlation between the two variables. The correlation number showed a 38% correlation between the two variables and the scatter plot backed it up. This means that a higher number of corner kicks results in a higher goal differential and thus affecting the result of the match. However, it only accounts for a part of the reason for winning a soccer match. 
 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
