@@ -2,10 +2,19 @@
 title: "final_project"
 output: html_document
 ---
+The dataframe contains data from 1954-2013. The data shows the different sports that were featured on the cover of Sports Illustrated over that 59 year span. The columns that are specific to my project are: baseball, basketball, american football and ice hockey. This project will look at their coverage on the magazine cover over time, being the "Big Four" sports in the US. How do they fluctuate in comparison to each other? How does this reflect the popularity of each sport? I will exclude the data from 1954 because they only printed 20 issues that year, rather than the 52 or 53 from every other year in the dataset.
 
 
-replace_na()
 
+Hypothesis testing to see the correlation over time of how commonly they were used. Hypotheses: Football became more common of a cover sport over time. Baseball and basketball remained relatively flat but on a slight decline. Ice hockey was kind of randomly thrown in there over time when deemed right. To help with this, I will create bar charts to look at whether or not these sports have a normal distribution over time, if they are skewed towards the earlier or later years, or if it is random. This would be used to help with the hypothesis testing.
+
+Fox started broadcasting sports in 1994. How did the broadcasting company bringing more eyes to live sports affect who was on the cover of the magazine? I also want to do the same thing, but for ESPN. They started in 1979. To avoid having one side of the comparison have more data than the other greatly affecting the numbers, I will average out the results in addition to having the raw numbers to get a more accurate representation.
+
+I want to do a similar comparison, but using the year 2000. I chose this year as well because I want to see if the "digital age" had any affect on which sports were featured more frequently.
+
+Outlier analysis. Were there any years where there was little to no coverage of any of these sports? Or on the flip side, were there any years where there was a much larger number of issues made with the sport featured? What could have caused these outliers?
+
+I also want to turn each data entry into a percentage of the total issues for that year. How do they compare to each other?
 
 ```{r}
 
@@ -17,3 +26,7 @@ covers <- read_csv("SI-Cover-by-Sport-DFE.csv")
 covers <- covers %>%
   mutate(across(where(is.numeric), ~replace_na(., 0)))
 ```
+
+
+
+
