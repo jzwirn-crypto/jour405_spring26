@@ -62,6 +62,10 @@ covers2 <- covers2 |>
   select(year, grand_total, sport, count, share)
 ```
 
+```{r}
+covers2 <- covers2 |>
+  
+```
 
 
 
