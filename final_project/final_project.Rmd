@@ -30,13 +30,7 @@ covers <- covers %>%
   mutate(across(where(is.numeric), ~replace_na(., 0)))
 
 ```
-The code that you provided in the comments of the previous assignment doesn't work. I get an error message when trying to filter by the year. I don't understand what the problem is. This is the error message I get:
-Error in `filter()`:
-ℹ In argument: `year >= 1955`.
-Caused by error in `year >= 1955`:
-! comparison (>=) is possible only for atomic and list types
 
-I don't understan what this means.
 ```{r}
 covers <- read_csv("SI-Cover-by-Sport-DFE.csv") |> clean_names()   # becomes: american_football, ice_hockey, grand_total, etc.
 
