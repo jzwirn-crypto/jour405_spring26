@@ -12,6 +12,8 @@ Fox started broadcasting sports in 1994. How did the broadcasting company bringi
 
 I want to do a similar comparison, but using the year 2000. I chose this year as well because I want to see if the "digital age" had any affect on which sports were featured more frequently.
 
+Linear regression would be the perfect way to test the above comparisons (FOX, ESPN, 2000). I will do a similar comparison to what we did in class with the FARMS data to see if there is a correlation over time.
+
 Outlier analysis. Were there any years where there was little to no coverage of any of these sports? Or on the flip side, were there any years where there was a much larger number of issues made with the sport featured? What could have caused these outliers?
 
 I also want to turn each data entry into a percentage of the total issues for that year. How do they compare to each other?
@@ -19,14 +21,32 @@ I also want to turn each data entry into a percentage of the total issues for th
 ```{r}
 
 library(tidyverse)
+library(janitor)
 
 
 covers <- read_csv("SI-Cover-by-Sport-DFE.csv")
 
 covers <- covers %>%
   mutate(across(where(is.numeric), ~replace_na(., 0)))
+
 ```
+The code that you provided in the comments of the previous assignment doesn't work. I get an error message when trying to filter by the year. I don't understand what the problem is. This is the error message I get:
+Error in `filter()`:
+ℹ In argument: `year >= 1955`.
+Caused by error in `year >= 1955`:
+! comparison (>=) is possible only for atomic and list types
 
+I don't understan what this means.
+```{r}
+covers <- read_csv("SI-Cover-by-Sport-DFE.csv") |> clean_names()   # becomes: american_football, ice_hockey, grand_total, etc.
 
+covers_long <- covers |>
+  filter(year >= 1955) |>
+  mutate(across(c(american_football, baseball, basketball, ice_hockey),
+                ~replace_na(., 0))) |>
+  pivot_longer(c(american_football, baseball, basketball, ice_hockey),
+               names_to = "sport", values_to = "count") |>
+  mutate(share = count / grand_total)
+```
 
 
