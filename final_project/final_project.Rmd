@@ -2,7 +2,7 @@
 title: "final_project"
 output: html_document
 ---
-The dataframe contains data from 1954-2013. The data shows the different sports that were featured on the cover of Sports Illustrated over that 59 year span. The columns that are specific to my project are: baseball, basketball, american football and ice hockey. This project will look at their coverage on the magazine cover over time, being the "Big Four" sports in the US. How do they fluctuate in comparison to each other? How does this reflect the popularity of each sport? I will exclude the data from 1954 because they only printed 20 issues that year, rather than the 52 or 53 from every other year in the dataset.
+The dataframe contains data from 1954-2013. The data shows the different sports that were featured on the cover of Sports Illustrated over that 59 year span. The columns that are specific to my project are: baseball, basketball, boxing, american football and ice hockey. This project will look at their coverage on the magazine cover over time, being the "Big Four" sports in the US. How do they fluctuate in comparison to each other? How does this reflect the popularity of each sport? I will exclude the data from 1954 because they only printed 20 issues that year, rather than the 52 or 53 from every other year in the dataset.
 
 
 
@@ -62,11 +62,8 @@ covers2 <- covers2 |>
   select(year, grand_total, sport, count, share)
 ```
 
-```{r}
-covers2 <- covers2 |>
-  
-```
+I have modified the dataframe to now only show the data that is specific for my project. I then filtered it by "share" to see what the highest shares of covers by sport were from 1955-2013. The highest percentage is 46% for American Football in 2005. In fact, each of the top 12 cover share percentages are all American Football, showing it's prominence and dominance in the sports landscape. The next 12 are all tied at 17 covers in the year. 8 of them are American Football. This means that of the top 24, 16.66% of them were not American Football, meaning 83.33% of them were. This was 4 of the 24. 3 of them were basketball and 1 was baseball.
 
-
+It is the same story when looking at the overall numbers. 27% of all Sports Illustrated covers from 1955-2013 had American Football represented on the cover. 19% baseball. 18% basketball. 4% boxing. 3% ice hockey. 71% of all Sports Illustrated covers were one of these 5 sports, which are arguably the top 5 sports in US history. Other sports like NASCAR, golf and soccer have their popularity too, but when considering all of US history, the 5 sports I mentioned above are at the top of the charts.
 
 
