@@ -22,6 +22,7 @@ I also want to turn each data entry into a percentage of the total issues for th
 
 library(tidyverse)
 library(janitor)
+library(dplyr)
 
 
 covers <- read_csv("SI-Cover-by-Sport-DFE.csv")
@@ -32,15 +33,36 @@ covers <- covers %>%
 ```
 
 ```{r}
-covers <- read_csv("SI-Cover-by-Sport-DFE.csv") |> clean_names()   # becomes: american_football, ice_hockey, grand_total, etc.
+covers <- read_csv("SI-Cover-by-Sport-DFE.csv") |> clean_names()  |> rename (year = unnamed_0) # becomes: american_football, ice_hockey, grand_total, etc.
 
-covers_long <- covers |>
-  filter(year >= 1955) |>
-  mutate(across(c(american_football, baseball, basketball, ice_hockey),
+covers2 <- covers |>
+  filter(year >= 1955)
+covers2 <- covers %>%
+  mutate(across(where(is.numeric), ~replace_na(., 0)))
+
+```
+
+```{r}
+covers2 <- covers2 |>
+   mutate(across(c(american_football, baseball, boxing, basketball, ice_hockey),
                 ~replace_na(., 0))) |>
-  pivot_longer(c(american_football, baseball, basketball, ice_hockey),
+  pivot_longer(c(american_football, baseball, boxing, basketball, ice_hockey),
                names_to = "sport", values_to = "count") |>
   mutate(share = count / grand_total)
+  
 ```
+
+```{r}
+covers2 <- covers2 |>
+  filter(year >= 1955)
+```
+
+```{r}
+covers2 <- covers2 |>
+  select(year, grand_total, sport, count, share)
+```
+
+
+
 
 
