@@ -6,17 +6,26 @@ The dataframe contains data from 1954-2013. The data shows the different sports 
 
 
 
-Hypothesis testing to see the correlation over time of how commonly they were used. Hypotheses: Football became more common of a cover sport over time. Baseball and basketball remained relatively flat but on a slight decline. Ice hockey was kind of randomly thrown in there over time when deemed right. To help with this, I will create bar charts to look at whether or not these sports have a normal distribution over time, if they are skewed towards the earlier or later years, or if it is random. This would be used to help with the hypothesis testing.
+Hypothesis testing to see the correlation over time of how commonly they were used. Hypotheses: Football became more common of a cover sport over time. Baseball and basketball remained relatively flat but on a slight decline. Ice hockey was kind of randomly thrown in there over time when deemed right. To help with this, I will create bar charts to look at whether or not these sports have a normal distribution over time, if they are skewed towards the earlier or later years, or if it is random.
 
 Fox started broadcasting sports in 1994. How did the broadcasting company bringing more eyes to live sports affect who was on the cover of the magazine? I also want to do the same thing, but for ESPN. They started in 1979. To avoid having one side of the comparison have more data than the other greatly affecting the numbers, I will average out the results in addition to having the raw numbers to get a more accurate representation.
 
 I want to do a similar comparison, but using the year 2000. I chose this year as well because I want to see if the "digital age" had any affect on which sports were featured more frequently.
 
-Linear regression would be the perfect way to test the above comparisons (FOX, ESPN, 2000). I will do a similar comparison to what we did in class with the FARMS data to see if there is a correlation over time.
+Linear regression would be the perfect way to test the above comparisons (FOX, ESPN, 2000). I want to maybe do a similar comparison to what we did in class with the FARMS data to see if there is a correlation over time.
 
 Outlier analysis. Were there any years where there was little to no coverage of any of these sports? Or on the flip side, were there any years where there was a much larger number of issues made with the sport featured? What could have caused these outliers?
 
 I also want to turn each data entry into a percentage of the total issues for that year. How do they compare to each other?
+
+
+
+
+After starting the process of working through the project, I am starting to figure out what I truly want to do with this project. I already have the percentages per year done for each sport as well as the overall percentage totals. These percentages helped me determine which sports are the most commonly covered. I wonder how I can take this a step further, but I am unsure how to do so yet. 
+
+I started to create bar charts for each sport, and I want to add lines to show where FOX/ESPN/2000 are and then see those comparisons. These bar charts will also show me the general trend over time for each of these sports and how frequently they were represented on Sports Illustrated covers over time. 
+
+The final step will be to make linear regression charts to show the pct share over time. I know the general trend will be found by the bar charts, but I will use the linear regression charts to determine whether or not the result is significant by finding the p-value. Then finding the z-score to determine whether or not there are any outliers.
 
 ```{r}
 
@@ -80,8 +89,32 @@ boxing <- covers2 %>%
   filter(sport == "boxing")
 ```
 
+Above: This is me creating separate dataframes, categorized by each sport so I can get a better understanding of how each of my tests will affect each sport individually. I will create my charts individually by sport so I can easily see the differences.
+
+```{r}
+ggplot(boxing[boxing$year != "Grand Total", ], aes(x = year, y = count)) +
+  geom_col() +
+  labs(
+    x = "Year",
+    y = "Number of Boxing Covers",
+    title = "Boxing Coverage Over Time"
+  )
+```
+
+This graph works, but I want to have less clutter across the bottom while still showing the full 59 year timespan. How would you recommend fixing this? I want to make the same graphs for each of the sports I am looking at, but I can't do so until I figure out how to make the chart readable, especially considering when I look a the football chart it will be taller as well. I also want to add lines into these charts so I can look at the pre/post FOX/ESPN/2000 aspects that I want to look at.
 
 
+```{r}
+boxing <- boxing[boxing$year != "Grand Total", ]
 
-
+ggplot(boxing, aes(x = year, y = share)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    x = "Year",
+    y = "Number of Boxing Covers",
+    title = "Boxing Coverage Over Time"
+  )
+```
+Same as the bar chart.
 
