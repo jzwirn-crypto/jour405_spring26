@@ -27,6 +27,13 @@ I started to create bar charts for each sport, and I want to add lines to show w
 
 The final step will be to make linear regression charts to show the pct share over time. I know the general trend will be found by the bar charts, but I will use the linear regression charts to determine whether or not the result is significant by finding the p-value. Then finding the z-score to determine whether or not there are any outliers.
 
+
+
+
+
+Start of project:
+
+
 ```{r}
 
 library(tidyverse)
@@ -71,7 +78,9 @@ covers2 <- covers2 |>
   select(year, grand_total, sport, count, share)
 ```
 
-I have modified the dataframe to now only show the data that is specific for my project. I then filtered it by "share" to see what the highest shares of covers by sport were from 1955-2013. The highest percentage is 46% for American Football in 2005. In fact, each of the top 12 cover share percentages are all American Football, showing it's prominence and dominance in the sports landscape. The next 12 are all tied at 17 covers in the year. 8 of them are American Football. This means that of the top 24, 16.66% of them were not American Football, meaning 83.33% of them were. This was 4 of the 24. 3 of them were basketball and 1 was baseball.
+The above code is to filter the data to be relevant for my project. I created a second copy of the chart so I still have the original dataframe. "Covers2" only shows the data form the 5 sports that I am looking at for this project: american football, basketball, baseball, ice hockey and boxing. I also filtered the data to only show 1955 and after to avoid the 1954 anomaly of half the number of magazine issues.
+
+I filtered it by "share" to see what the highest shares of covers by sport were from 1955-2013. The highest percentage is 46% for American Football in 2005. In fact, each of the top 12 cover share percentages are all American Football, showing it's prominence and dominance in the sports landscape. The next 12 are all tied at 17 covers in the year. 8 of them are American Football. This means that of the top 24, 16.66% of them were not American Football, meaning 83.33% of them were. This was 4 of the 24. 3 of them were basketball and 1 was baseball.
 
 It is the same story when looking at the overall numbers. 27% of all Sports Illustrated covers from 1955-2013 had American Football represented on the cover. 19% baseball. 18% basketball. 4% boxing. 3% ice hockey. 71% of all Sports Illustrated covers were one of these 5 sports, which are arguably the top 5 sports in US history. Other sports like NASCAR, golf and soccer have their popularity too, but when considering all of US history, the 5 sports I mentioned above are at the top of the charts.
 
@@ -91,18 +100,6 @@ boxing <- covers2 %>%
 
 Above: This is me creating separate dataframes, categorized by each sport so I can get a better understanding of how each of my tests will affect each sport individually. I will create my charts individually by sport so I can easily see the differences.
 
-```{r}
-ggplot(boxing[boxing$year != "Grand Total", ], aes(x = year, y = count)) +
-  geom_col() +
-  labs(
-    x = "Year",
-    y = "Number of Boxing Covers",
-    title = "Boxing Coverage Over Time"
-  ) + 
-  theme(
-    axis.text.x = element_text(angle = 60,  hjust=1, size = 7)
-  )
-```
 ```{r, fig.width = 12, fig.height = 5}
 vlines <- data.frame(
   year = c("1979", "1994", "2000"),
@@ -119,31 +116,37 @@ ggplot(boxing[boxing$year != "Grand Total", ], aes(x = year, y = count, group = 
   labs(
     x = "Year",
     y = "Number of Boxing Covers",
-    title = "Boxing Coverage Over Time"
+    title = "Sports Illustrated Covers: Boxing Coverage Over Time"
   ) +
   theme(
     axis.text.x = element_text(angle = 60, hjust = 1, size = 9)
   )
 ```
-
-
-This graph works, but I want to have less clutter across the bottom while still showing the full 59 year timespan. How would you recommend fixing this? I want to make the same graphs for each of the sports I am looking at, but I can't do so until I figure out how to make the chart readable, especially considering when I look a the football chart it will be taller as well. I also want to add lines into these charts so I can look at the pre/post FOX/ESPN/2000 aspects that I want to look at.
-
+Looking at this line chart, I see a steep downward trend of coverage, especially since Muhammad Ali's career ended in 1981. This correlates with the start of ESPN as they almost immediately started covering boxing when they started up, starting their boxing coverage in 1980. ESPN never aired a fight with Ali in it. After Ali retired, the popularity of the sport decreased, causing a lower amount of coverage on Sports Illustrated covers. Ali holds the second-most appearances on the cover, behind only Michael Jordan, being featured on the cover 40 times between 1963-2016. Over the course of Ali's career, there were 60 boxing features on the Sports Illustrated cover. One can make the reasonable assumption that Ali was the cover athlete for the majority of those 60 throughout his career. Being the face of the sport, one can guess that once he retired, the coverage went down as a result. The comparisons for ESPN and FOX aren't very helpful for boxing as FOX never broadcasted boxing and ESPN got into the sport as it was at the end of its peak, but they still split up the data to show that the sport has declined in popularity. For the third line, 2000, this shows the severity of the decline as there is a total of 3 covers featuring boxing after the year 2000.
 
 ```{r}
-boxing <- boxing[boxing$year != "Grand Total", ]
+boxing_filtered <- boxing[boxing$year != "Grand Total", ]
+boxing_filtered$year <- as.numeric(boxing_filtered$year)
+boxing_filtered$count <- as.numeric(boxing_filtered$share)
 
-ggplot(boxing, aes(x = year, y = share)) +
-  geom_line() +
-  geom_point() +
-  labs(
-    x = "Year",
-    y = "Number of Boxing Covers",
-    title = "Boxing Coverage Over Time"
-  ) + 
-  theme(
-    axis.text.x = element_text(angle = 45,  hjust=1)
-  )
+# Before/After ESPN (1979)
+boxing_filtered$espn <- ifelse(boxing_filtered$year < 1979, "Before ESPN", "After ESPN")
+aggregate(count ~ espn, data = boxing_filtered, FUN = mean)
+
+# Before/After FOX (1994)
+boxing_filtered$fox <- ifelse(boxing_filtered$year < 1994, "Before FOX", "After FOX")
+aggregate(count ~ fox, data = boxing_filtered, FUN = mean)
+
+# Before/After Digital Age (2000)
+boxing_filtered$digital <- ifelse(boxing_filtered$year < 2000, "Before Digital", "After Digital")
+aggregate(count ~ digital, data = boxing_filtered, FUN = mean)
 ```
-Same as the bar chart.
+These comparisons are here to show the share percentages per year for before/after each of the comparison lines. There isn't much to take away from these comparisons as the lines aren't very helpful for this particular sport. The digital age one, however, reflects what I mentioned earlier about the severe lack of coverage post 2000. 
+
+```{r}
+model_filtered <- lm(`year` ~ `share`, data = boxing)
+summary(model_filtered)
+```
+The linear regression model shows me that this comparison is statistically significant. With an extremely low p-value, this tells me that there is a relationship between the year and the percentage share of covers using boxing. The extremely low coefficient tells me that there is a STEEP decline in boxing coverage over time.
+
 
