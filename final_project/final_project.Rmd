@@ -173,7 +173,7 @@ ggplot(ice_hockey[ice_hockey$year != "Grand Total", ],
     axis.text.x = element_text(angle = 60, hjust = 1, size = 9)
   )
 ```
-
+Looking at this data, I see a sport that never got much coverage in comparison to the total number of issues in any given year, but remained relatively consistent at giving a few each year. You can see a giant uptick in 1980, which is when the "Miracle on Ice" team won gold for the US in the Winter Olympics. This warranted an increase in coverage on the cover of Sports Illustrated. Aside from that spike, there was a few year span in the early 2000s where there was zero coverage. This can be choked up to the 2004/2005 lockout, with no action on the ice for a long period of time. Hockey has always seemingly been in the 4 spot behind the NFL, MLB and NBA within the US and this data reflects that.
 
 ```{r}
 ice_hockey_filtered <- ice_hockey[ice_hockey$year != "Grand Total", ]
@@ -192,14 +192,14 @@ aggregate(count ~ fox, data = ice_hockey_filtered, FUN = mean)
 ice_hockey_filtered$digital <- ifelse(ice_hockey_filtered$year < 2000, "Before Digital", "After Digital")
 aggregate(count ~ digital, data = ice_hockey_filtered, FUN = mean)
 ```
-
+After ESPN started, the share of covers featuring hockey on the cover dropped by a significant margin. Aside from the uptick in 1980 with the Miracle on Ice, overall, coverage went down. ESPN began their NHL coverage right as they started as a company. There is a similar pattern for both the FOX and digital age lines as well with the share of coverage going down compared to before they started. FOX was only a broadcast partner for the NHL from 1995 to 1999 and in those years the share stayed low before it made its final dip after the digital age. 
 
 ```{r}
 model_filtered2 <- lm(`year` ~ `share`, data = ice_hockey)
 summary(model_filtered2)
 ```
 
-
+This linear regression model shows that there is a significant decrease in NHL coverage over time. There is a larger decrease in coverage over time than compared to the boxing coverage regression over time. Both of these sports had their time at the top, but was short lived and dropped off sharply after the fact.
 
 
 
@@ -229,7 +229,7 @@ ggplot(basketball[basketball$year != "Grand Total", ],
     axis.text.x = element_text(angle = 60, hjust = 1, size = 9)
   )
 ```
-
+This chart shows an increase over time in basketball coverage. While there is a drop off at the end, the overall trend is up. The increase in the late 1980s/early 1990s corresponds pretty closely with Michael Jordan's career taking off. With Jordan being one of the top NBA players of all time (and he is #1 in my mind) he has been featured on the cover 50 times from 1983 to 2013, a record for any individual athlete.
 
 ```{r}
 basketball_filtered <- basketball[basketball$year != "Grand Total", ]
@@ -248,14 +248,14 @@ aggregate(count ~ fox, data = basketball_filtered, FUN = mean)
 basketball_filtered$digital <- ifelse(basketball_filtered$year < 2000, "Before Digital", "After Digital")
 aggregate(count ~ digital, data = basketball_filtered, FUN = mean)
 ```
-
+ESPN started broadcasting the NBA in 1983, corresponding with Jordan's career and you can see the large increase since. There was also an increase post FOX and digital age. FOX has never broadcasted an NBA game and therefore had no impact on Sports Illustrated covers. The digital age increase can be chalked up to potentially the LeBron James era, which started in 2003/2004. However, there isn't enough data in terms of both years and LeBron's career still going to determine anything further about the numbers post digital age in that sense.
 
 ```{r}
 model_filtered3 <- lm(`year` ~ `share`, data = basketball)
 summary(model_filtered3)
 ```
 
-
+This is the most significant result thus far. With an EXTREMELY low p-value and a high coefficient, the increase is both large and significant. This result shows me that while some sports trended down, others had to take their places. The NBA was one of those sports to take the spot of the declining NHL and boxing.
 
 
 
@@ -287,7 +287,7 @@ ggplot(baseball[baseball$year != "Grand Total", ],
     axis.text.x = element_text(angle = 60, hjust = 1, size = 9)
   )
 ```
-
+The MLB graph is very up and down. Based on the graph alone, there is a slight increase, but we will see further down. The peak around 1998 corresponds with the Yankees superteam consisting of Derek Jeter, Mariano Rivera, Bernie Williams, Paul O'Neill, and more. The other peaks correspond with big years for the sport such as 2004 when the Red Sox won their first World Series in 86 years and 2009 when the Yankees won their most recent and MLB leading 27th title. The graph is not consistent in any way. The up and down look makes it seem like there is no real change over time post 1980. 
 
 ```{r}
 baseball_filtered <- baseball[baseball$year != "Grand Total", ]
@@ -306,13 +306,13 @@ aggregate(count ~ fox, data = baseball_filtered, FUN = mean)
 baseball_filtered$digital <- ifelse(baseball_filtered$year < 2000, "Before Digital", "After Digital")
 aggregate(count ~ digital, data = baseball_filtered, FUN = mean)
 ```
-
+The increase in share post ESPN and FOX are due to the two networks broadcasting America's Pastime. While the graphs look up and down, however, the differences are so minimal that it just about averages out. There isn't much to take away from this test here.
 
 ```{r}
 model_filtered4 <- lm(`year` ~ `share`, data = baseball)
 summary(model_filtered4)
 ```
-
+This is another significant increase, according to this regression model. While it's not very visible on the graph, the underlying data is there to show that this is a significant increase.
 
 
 
@@ -343,7 +343,7 @@ ggplot(american_football[american_football$year != "Grand Total", ],
     axis.text.x = element_text(angle = 60, hjust = 1, size = 9)
   )
 ```
-
+Like the NBA, this increase is obvious on the graph. However, there are less valleys on the NFL graph. This one is a very steady increase over time. The peaks in the early 2000s correlate with the big boom in popularity for the NFL and fantasy football. Sports Illustrated picks their cover athletes based on what the biggest story at the time is. The NFL is usually the largest sport at any given time of the year and this is reflected in this data.
 
 ```{r}
 american_football_filtered <- american_football[american_football$year != "Grand Total", ]
@@ -362,11 +362,25 @@ aggregate(count ~ fox, data = american_football_filtered, FUN = mean)
 american_football_filtered$digital <- ifelse(american_football_filtered$year < 2000, "Before Digital", "After Digital")
 aggregate(count ~ digital, data = american_football_filtered, FUN = mean)
 ```
-
+The increases for post all of these lines in my opinion don't reflect the broadcast partners. Sure all of these networks broadcast the NFL, but the sport overall was increasing so quickly in popularity that these numbers are almost irrelevant aside from getting more eyes on the sport from large TV networks. 
 
 
 ```{r}
 model_filtered5 <- lm(`year` ~ `share`, data = american_football)
 summary(model_filtered5)
 ```
+This is another significant increase in coverage. The NFL increased steadily over time in terms of both general popularity and Sports Illustrated cover shares.
 
+
+Story Pitch:
+What Sports Illustrated Covers Tell Us About America
+
+For 59 years, Sports Illustrated made a decision every single week: whose face goes on the cover? That choice wasn't made in a vacuum. It reflected what editors believed Americans cared about most at that exact moment in time. Taken together, those thousands of decisions form an accidental but remarkably precise record of how American sports culture and American identity evolved.
+
+The article would cover the NFL's dominance in US Mainstream Media, the decline of boxing, the NBA's steady growth, the MLB's up and down history and the NHL's lagging behind.
+
+Potential Problems
+Data ends in 2013, no streaming era, no social media, individual athletes skew the data further than sports.
+
+Reporting Plan
+Talk to Sports Illustrated editors, sports media historians. Use the charts I made in this project and create others as well.
